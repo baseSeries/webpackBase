@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id='app'></div>
+    <div id="oneDivVal"></div>
+    <input id="oneInput" type="text" value="">
+
+    <div>性别</div>
+
+
+    <script>
+        window.onload = function () {
+            setInputModel()
+            setRadioModel()
+        }
+        function setInputModel () {
+            let oneInput = document.getElementById("oneInput");
+            let oneDivVal = document.getElementById("oneDivVal")
+            let val = 0
+            oneDivVal.innerHTML = val
+            oneInput.addEventListener("change", (event) => {
+                console.log(event);
+                oneDivVal.innerHTML = event.target.value
+            })
+        }
+        function setRadioModel () {
+            let titleEl = document.createElement("div")
+            titleEl.innerHTML = "标题"
+            let fragment = document.createDocumentFragment()
+            fragment.appendChild(titleEl)
+
+            for (let i = 0; i < 2; i++) {
+                let labelEl = document.createElement("label")
+                let radioEl = document.createElement("input")
+                let spanEl = document.createElement("span")
+                spanEl.innerHTML = i == 0 ? '男' : '女'
+
+                labelEl.setAttribute("for", i == 0 ? 'man' : 'women')
+
+                radioEl.type = 'radio'
+                radioEl.id = i == 0 ? 'man' : 'women'
+                radioEl.setAttribute("value", i == 0 ? 'man' : 'women')
+                radioEl.setAttribute("name", 'sex')
+
+                labelEl.appendChild(radioEl)
+                labelEl.appendChild(spanEl)
+                fragment.appendChild(labelEl)
+
+            }
+            document.body.appendChild(fragment)
+
+        }
+
+        const App = {
+            template: '<div class="">{{message}}   <input   type="text" v-model="message" ></div>',
+            data () {
+                return {
+                    message: '哈哈'
+                }
+            },
+            methods: {
+                handlerClick: function (e) {
+                    this.message = e.target.value
+                }
+            }
+        }
+        let app = Vue.createApp(App)
+        app.mount('#app')
+
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,4 @@
 # 忽略指定文件夹
 
-
-# webpack01/node_modules
-node_modules
-# /node_modules
+ 
+node_modules 
