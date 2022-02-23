@@ -8,7 +8,22 @@ module.exports = {
         filename: 'bundle.js',
     },
     module: {
-
+        rules: [
+            {
+                test: /\.s?css$/,
+                use: ['style-loader', "css-loader",
+                    'postcss-loader',
+                    // {
+                    //     loader: 'postcss-loader',
+                    //     options: {
+                    //         postcssOptions: {
+                    //             plugins: [require('autoprefixer')]
+                    //         }
+                    //     }
+                    // },
+                    'sass-loader'],
+            }
+        ]
     },
     plugins: [
         new CleanWebpackPlugin(),

@@ -10,13 +10,17 @@
 </head>
 
 <body>
-    <div id='app'></div>
+    <div id='app'>
+
+    </div>
     <div id="oneDivVal"></div>
     <input id="oneInput" type="text" value="">
 
     <div>性别</div>
 
-
+    <template id="b">
+        <div>component-b</div>
+    </template>
     <script>
         window.onload = function () {
             setInputModel()
@@ -61,7 +65,7 @@
         }
 
         const App = {
-            template: '<div class="">{{message}}   <input   type="text" v-model="message" ></div>',
+            template: '<div class="">{{message}}   <input   type="text" v-model="message" ></div>  <component-a></component-a><component-b></component-b>0',
             data () {
                 return {
                     message: '哈哈'
@@ -74,6 +78,13 @@
             }
         }
         let app = Vue.createApp(App)
+
+        app.component("component-a", {
+            template: '<div class="">component-a</div>'
+        })
+        app.component("component-b", {
+            template: '#b'
+        })
         app.mount('#app')
 
     </script>
