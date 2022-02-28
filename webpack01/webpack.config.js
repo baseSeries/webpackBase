@@ -1,11 +1,15 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { DefinePlugin } = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
+    mode: 'development',
+    devtool: 'source-map',
     entry: './src/main.js',
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
+        filename: 'js/bundle.js',
         // assetModuleFilename: 'img/[hash:8]_[name][ext]'  //通过type为asset打包输出的文件目录及名称
     },
     module: {
@@ -52,21 +56,18 @@ module.exports = {
             },
             {
                 test: /\.(eot|ttf|woff2?)$/,
-                // use: {
-                //     loader: 'file-loader',
-                //     options: {
-                //         name: "font/[hash:8]_[name].[ext]",
-                //         esModule: false,//关闭esmodule 
-                //     }
-                // },
-                // type: 'javascript/auto'
-                type: 'asset/resources',
-                parser: {
-                    dataUrlCondition: {}
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: "font/[hash:8]_[name].[ext]",
+                        esModule: false,//关闭esmodule 
+                    }
                 },
-                generator: {
-                    filename: "font/[hash:8]_[name][ext]"
-                }
+                type: 'javascript/auto'
+                // type: 'asset/resources', 
+                // generator: {
+                //     filename: "font/[hash:8]_[name][ext]"
+                // }
             }
 
         ]
@@ -74,9 +75,26 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, './src/assets/index.html'),
+            title: 'documentTitle',
+            template: path.join(__dirname, './public/index.html'),
+        }),
+        new DefinePlugin({
+            BASE_URL: "'./'"
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: "public",
+                    to: './public',
+                    globOptions: {
+                        ignore: ['**/*.html']
+                    }
+                }
+            ]
         })
     ],
+
+
 
 
 }
