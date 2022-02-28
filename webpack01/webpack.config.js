@@ -3,7 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { DefinePlugin } = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+
+const { VueLoaderPlugin } = require('vue-loader/dist/index')
 module.exports = {
+    target: 'web',//为热更新配套
     mode: 'development',
     devtool: 'source-map',
     entry: './src/main.js',
@@ -11,6 +14,10 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: 'js/bundle.js',
         // assetModuleFilename: 'img/[hash:8]_[name][ext]'  //通过type为asset打包输出的文件目录及名称
+    },
+    devServer: {
+        static: './public',
+        hot: true, //开启后 只对vue文件生效 因为vue-loader 已经处理了
     },
     module: {
         rules: [
@@ -68,6 +75,22 @@ module.exports = {
                 // generator: {
                 //     filename: "font/[hash:8]_[name][ext]"
                 // }
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                // use: {
+                //     loader:"babel-loader",
+                //     options:{
+                //         presets:[
+                //             "@babel/preset-env"
+                //         ]
+                //     }
+                // }
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
             }
 
         ]
@@ -79,7 +102,9 @@ module.exports = {
             template: path.join(__dirname, './public/index.html'),
         }),
         new DefinePlugin({
-            BASE_URL: "'./'"
+            BASE_URL: "'./'",
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: false,
         }),
         new CopyWebpackPlugin({
             patterns: [
@@ -91,7 +116,8 @@ module.exports = {
                     }
                 }
             ]
-        })
+        }),
+        new VueLoaderPlugin()
     ],
 
 
