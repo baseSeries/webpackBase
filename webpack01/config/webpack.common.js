@@ -1,33 +1,14 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { DefinePlugin } = require('webpack')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-
 const { VueLoaderPlugin } = require('vue-loader/dist/index')
 module.exports = {
     target: 'web',//为热更新配套
-    mode: 'development',
-    devtool: 'source-map',
     entry: './src/main.js',
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../dist'),
         filename: 'js/bundle.js',
         // assetModuleFilename: 'img/[hash:8]_[name][ext]'  //通过type为asset打包输出的文件目录及名称
-    },
-    devServer: {
-        static: './public',
-        hot: true, //开启后 只对vue文件生效 因为vue-loader 已经处理了
-        proxy: {
-            "api": {
-                target: "http://localhost:8888",
-                ws: true,
-                changeOrigin: true,
-                pathRewrite: {
-                    "^/api": ''
-                }
-            }
-        }
     },
     module: {
         rules: [
@@ -106,36 +87,22 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'documentTitle',
-            template: path.join(__dirname, './public/index.html'),
+            template: path.resolve(__dirname, '../public/index.html'),
         }),
         new DefinePlugin({
             BASE_URL: "'./'",
             __VUE_OPTIONS_API__: true, //兼容options vue
             __VUE_PROD_DEVTOOLS__: false, //vue tools
         }),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: "public",
-                    // to: './public',
-                    globOptions: {
-                        ignore: ['**/*.html']
-                    }
-                }
-            ]
-        }),
         new VueLoaderPlugin()
+
     ],
-    resolve: {
-        alias: {
-            "@": path.resolve(__dirname, "./src")
-        },
-        extensions: [".js", ".jsx", '.vue']
-    }
-
-
-
+    // resolve: {
+    // alias: {
+    //     "@": path.resolve(__dirname, "./src")
+    // },
+    // extensions: [".js", ".jsx",]
+    // }
 }
