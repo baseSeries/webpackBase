@@ -1,7 +1,12 @@
 <template>
   <div>
-    <hello-world />
-    <custom-ref></custom-ref>
+    <!--   <hello-world /> -->
+    <!--自定义ref -->
+    <!-- <custom-ref></custom-ref> -->
+
+    <!-- <CompositionApi></CompositionApi> -->
+    <!-- <lifeCycle></lifeCycle> -->
+    <ReactJsx></ReactJsx>
   </div>
 
 </template>
@@ -9,11 +14,28 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import CustomRef from './components/customRef.vue'
+import CompositionApi from './components/CompositionApi.vue'
+import LifeCycle from './components/lifeCycle.vue'
+import ReactJsx from './components/reactJsx.vue'
+import { provide, reactive, readonly } from 'vue'
 export default {
   name: 'App',
+
   components: {
     HelloWorld,
     CustomRef,
+    CompositionApi,
+    LifeCycle,
+    ReactJsx,
+  },
+  setup() {
+    let user = reactive({ age: 18 })
+    const changeLocation = () => {
+      user.age += 1
+    }
+    provide('title', readonly(user))
+    provide('content', 'body')
+    provide('changeLocation', changeLocation)
   },
 }
 </script>
