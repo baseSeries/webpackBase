@@ -6,7 +6,8 @@
 
     <!-- <CompositionApi></CompositionApi> -->
     <!-- <lifeCycle></lifeCycle> -->
-    <ReactJsx></ReactJsx>
+    <!-- <ReactJsx></ReactJsx> -->
+    <Directive></Directive>
   </div>
 
 </template>
@@ -17,6 +18,7 @@ import CustomRef from './components/customRef.vue'
 import CompositionApi from './components/CompositionApi.vue'
 import LifeCycle from './components/lifeCycle.vue'
 import ReactJsx from './components/reactJsx.vue'
+import Directive from './components/directive.vue'
 import { provide, reactive, readonly } from 'vue'
 export default {
   name: 'App',
@@ -27,6 +29,7 @@ export default {
     CompositionApi,
     LifeCycle,
     ReactJsx,
+    Directive,
   },
   setup() {
     let user = reactive({ age: 18 })
