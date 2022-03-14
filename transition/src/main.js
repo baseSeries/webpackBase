@@ -1,7 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import registerDirectives from './directives/index.js'
 import "animate.css"
 
-createApp(App).mount('#app')
+let app = createApp(App)
+registerDirectives(app)
+app.mount('#app')
 
 
