@@ -1,20 +1,26 @@
 <template>
   <div>
     <router-link class="link"
-                 to="/home">home </router-link>
+                 to="/home"
+                 custom
+                 v-slot="{ navigate, href, route }">
+      <li @click="navigate">
+        <a :href="href">{{ route.fullPath }}</a>
+      </li>
+    </router-link>
     <router-link class="link"
                  to="/about">about</router-link>
     <router-link class="link"
                  to="/user:dang">user</router-link>
-    <transition name="fade"
-                mode="out-in">
-      <router-view v-slot="{ Component }">
+
+    <router-view v-slot="{ Component ,route}">
+      <transition :name="  route?.meta?.routeName ||'fade'"
+                  mode="out-in">
         <keep-alive>
           <component :is="Component" />
         </keep-alive>
-      </router-view>
-
-    </transition>
+      </transition>
+    </router-view>
 
   </div>
 </template>
