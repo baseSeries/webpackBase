@@ -1,14 +1,20 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <SetMu></SetMu>
+    <HelloWorld />
+
+  </div>
+
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-
+import SetMu from './components/SetMu.vue'
 export default {
   name: 'App',
   components: {
     HelloWorld,
+    SetMu,
   },
 }
 </script>

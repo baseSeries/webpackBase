@@ -18,6 +18,9 @@
     <hr>
     <h3>mapGetterName:{{maxPrice[0].name}}</h3>
     <h3>mapGetterPrice:{{maxPrice[0].price}}</h3>
+
+    <hr>
+
   </div>
 </template>
 
@@ -25,9 +28,9 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useMapper } from '../hook/useMapper'
+
 let store = useStore()
 let sCount = computed(() => store.state.count)
-// let { name, age, sex } = useMapper(['name', 'age', 'sex'])
 let { name, age, sex } = useMapper('MAPSTATE', {
   name: (state) => state.name,
   age: (state) => state.age,
