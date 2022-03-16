@@ -1,5 +1,8 @@
 import { createStore } from "vuex"
 import { INCREMENT_N } from "./mutationType.js"
+import about from "./about.js"
+import home from "./home.js"
+console.log(about, home);
 const store = createStore({
     state () {
         return {
@@ -43,7 +46,12 @@ const store = createStore({
         decrement: function (state, payload) {
             state.muCount -= payload
         }
+    },
+    modules: {
+        namespaced: true, // 增加命名空间
+        about: about,
+        home: home,
     }
 })
-
+console.log(store);
 export { store }

@@ -27,11 +27,11 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import { useMapper } from '../hook/useMapper'
+import { useMapState, useMapGetters } from '../hook/index'
 
 let store = useStore()
 let sCount = computed(() => store.state.count)
-let { name, age, sex } = useMapper('MAPSTATE', {
+let { name, age, sex } = useMapState({
   name: (state) => state.name,
   age: (state) => state.age,
   sex: (state) => state.sex,
@@ -41,7 +41,7 @@ let { name, age, sex } = useMapper('MAPSTATE', {
 let maxPriceObj = store.getters.maxPrice[0]
 let allPrice = computed(() => store.getters.allPrice(50))
 // let { maxPrice } = useMapperGet('MAPGETTER', ['maxPrice'])
-let { maxPrice } = useMapper('MAPGETTER', ['maxPrice'])
+let { maxPrice } = useMapGetters(['maxPrice'])
 const add = () => {
   store.commit('setCount')
 }

@@ -11,11 +11,11 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { useMapper } from '../hook/useMapper'
+import { useMapState } from '../hook/index'
 import { INCREMENT_N } from '../store/mutationType'
 export default {
   setup() {
-    let { muCount } = useMapper('MAPSTATE', ['muCount'])
+    let { muCount } = useMapState(['muCount'])
     // 不要结构
     let mapMutation = mapMutations(['increment', 'decrement', INCREMENT_N])
     // let mapMutation = mapMutations({

@@ -1,15 +1,8 @@
 import { computed } from "vue"
-import { useStore, mapState, mapGetters } from "vuex"
-// const types = { "MAPSTATE": mapState, "MAPGETTER": mapGetters }
-
-export const useMapper = function (type, mapper) {
+import { useStore, } from "vuex"
+const useMapper = function (type, mapper) {
     const store = useStore()
-    let mapStateFns
-    if (type == 'MAPSTATE') {
-        mapStateFns = mapState(mapper)
-    } else {
-        mapStateFns = mapGetters(mapper)
-    }
+    let mapStateFns = type(mapper)
     let mapStore = {}
     Object.keys(mapStateFns).forEach(fnKes => {
         let fns = mapStateFns[fnKes].bind({ $store: store })
@@ -17,4 +10,5 @@ export const useMapper = function (type, mapper) {
 
     })
     return mapStore
-} 
+}
+export default useMapper
